@@ -1,0 +1,24 @@
+[core]
+    editor = vim
+[color]
+    ui = auto
+[user]
+	  email = gaurav.chaurasia@inria.fr
+	  name = Gaurav Chaurasia
+[credential]
+    helper = osxkeychain
+[diff]
+    tool = vimdiff
+[merge]
+    tool = fugitive
+[difftool]
+    prompt = false
+[mergetool]
+    keepBackup = false
+[mergetool "fugitive"]
+    cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+[alias]
+    logg = log --oneline --graph
+    st = status
+    ci = commit -m
+	  d = difftool
