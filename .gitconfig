@@ -3,8 +3,8 @@
 [color]
     ui = auto
 [user]
-	  email = gaurav.chaurasia@inria.fr
-	  name = Gaurav Chaurasia
+	email = gaurav.chaurasia@inria.fr
+	name = Gaurav Chaurasia
 [credential]
     helper = osxkeychain
 [diff]
@@ -21,4 +21,4 @@
     logg = log --oneline --graph
     st = status
     ci = commit -m
-	  d = difftool
+	d = difftool

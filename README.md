@@ -1,4 +1,7 @@
-config_files
-============
+## CONTENTS
 
-Config files for bash environment
+#### Config files for bash environement
+- bashrc
+- vimrc
+- gitconfig
+- svn (to be added)
