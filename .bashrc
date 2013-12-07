@@ -141,12 +141,41 @@ function pdfextr()
     ${3}
 }
 
-# Dump core in case of seg fault
-#ulimit -c unlimited
+function pdfresize()
+{
+  # $1 is input pdf file
+  # $2 is output pdf file
+  echo "Resizing $1 to 300dpi for 8.5inx11in paper size"
+  gs \
+    -o $2 \
+    -sDEVICE=pdfwrite \
+    -dPDFFitPage \
+    -r300x300 \
+    -g2550x3300 \
+    $1
+}
 
-export HALIDE_DIR=/home/gchauras/Halide/
-export PATH=/usr/local/texlive/2013/bin/x86_64-linux/:$PATH
+alias spellcheck='aspell --lang=en_US -c'
 
+function spellcheck_tex()
+{
+  #1 is the input tex file
+  aspell --lang=en_US -t -c $1;
+}
+
+function spellcheckall_tex()
+{
+  find . -name \*.tex -exec aspell --lang=en_US -t -c {} \;
+}
+
+export SVN_EDITOR=vim
+export EDITOR=vim
+export TERMINAL=gnome-terminal
+
+export HALIDE_DIR=/user/gchauras/home/Projects/Halide
+export LIBSL_DIR=/user/gchauras/home/Projects/libsl
+export PATH=/usr/local/cuda/bin:/usr/local/texlive/2012/bin/x86_64-linux:$PATH
+export LD_LIBRARY_PATH=/user/gchauras/home/bin:/user/gchauras/home/lib:/usr/lib64/nvidia:/usr/lib64:/usr/lib:/usr/local/lib64:/usr/local/lib:/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
 
 # Set vi mode
 set -o vi
