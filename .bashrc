@@ -178,4 +178,4 @@ export PATH=/usr/local/cuda/bin:/usr/local/texlive/2012/bin/x86_64-linux:$PATH
 export LD_LIBRARY_PATH=/user/gchauras/home/bin:/user/gchauras/home/lib:/usr/lib64/nvidia:/usr/lib64:/usr/lib:/usr/local/lib64:/usr/local/lib:/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
 
 # Set vi mode
-set -o vi
+# set -o vi
