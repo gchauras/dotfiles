@@ -31,15 +31,10 @@ WHITE="\033[1;37m"
 CYAN='\e[1;36m'
 RESET="\033[m"
 
-# Git branch details
-function parse_git_dirty()  { [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*";  }
-function parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"; }
-
 function powerprompt()
 {
-    symbol="⚡ " # more symbols at http://en.wikipedia.org/wiki/Unicode_symbols
-    PS1="\n${GRAY}[ ${CYAN}\u@\h ${GRAY}in ${CYAN}\w${GRAY}$([[ -n $(git branch 2> /dev/null) ]] && echo  on )${CYAN}$(parse_git_branch) ${GRAY}]\n$symbol${RESET}"
-    PS2="\n${GRAY}${symbol}${RESET}"
+    symbol="⚡ "
+    PS1="\n${GRAY}[ ${CYAN}\u@\h ${GRAY}in ${CYAN}\w ${GRAY}]${RESET}\n${GRAY}${symbol}${RESET}";
 }
 
 powerprompt     # This is the default prompt -- might be slow.
