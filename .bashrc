@@ -21,29 +21,25 @@ export HISTIGNORE="&:bg:fg:ll:h"
 export HOSTFILE=$HOME/.hosts    # Put list of remote hosts in ~/.hosts ...
 
 
-
 #-------------------------------------------------------------
 # Greeting, motd etc...
 #-------------------------------------------------------------
 
-# Define some colors first:
-red='\e[0;31m'
-RED='\e[1;31m'
-blue='\e[0;34m'
-BLUE='\e[1;34m'
-cyan='\e[0;36m'
+### Prompt Colors
+GRAY="\033[01;30m"
+WHITE="\033[1;37m"
 CYAN='\e[1;36m'
-NC='\e[0m'              # No Color
-# --> Nice. Has the same effect as using "ansi.sys" in DOS.
+RESET="\033[m"
 
-
-# Looks best on a terminal with black background.....
-#echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}"
-#date
+# Git branch details
+function parse_git_dirty()  { [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*";  }
+function parse_git_branch() { git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"; }
 
 function powerprompt()
 {
-  PS1="\n${cyan}[\u@\h \w]${NC}\n$ " ;
+    symbol="⚡ " # more symbols at http://en.wikipedia.org/wiki/Unicode_symbols
+    PS1="\n${GRAY}[ ${CYAN}\u@\h ${GRAY}in ${CYAN}\w${GRAY}$([[ -n $(git branch 2> /dev/null) ]] && echo  on )${CYAN}$(parse_git_branch) ${GRAY}]\n$symbol${RESET}"
+    PS2="\n${GRAY}${symbol}${RESET}"
 }
 
 powerprompt     # This is the default prompt -- might be slow.
@@ -78,8 +74,7 @@ alias maek='make'
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
 
 # Find a file with pattern $1 in name and Execute $2 on it:
-function fe()
-{ find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
+function fe() { find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
 
 # Find a pattern in a set of files and highlight them: (needs a recent version of egrep)
 function fstr()
@@ -171,11 +166,6 @@ function spellcheckall_tex()
 export SVN_EDITOR=vim
 export EDITOR=vim
 export TERMINAL=gnome-terminal
-
-export HALIDE_DIR=/user/gchauras/home/Projects/Halide
-export LIBSL_DIR=/user/gchauras/home/Projects/libsl
-export PATH=/usr/local/cuda/bin:/usr/local/texlive/2012/bin/x86_64-linux:$PATH
-export LD_LIBRARY_PATH=/user/gchauras/home/bin:/user/gchauras/home/lib:/usr/lib64/nvidia:/usr/lib64:/usr/lib:/usr/local/lib64:/usr/local/lib:/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
 
 # Set vi mode
 # set -o vi
