@@ -114,6 +114,12 @@ set ai                  " auto indenting
 set history=100         " keep 100 lines of history
 set ruler               " show the cursor position
 syntax on               " syntax highlighting
+let g:solarized_termcolors=256
+set t_Co=256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+set background=dark     " dark color scheme
+colorscheme solarized   " solarized color scheme
 set hlsearch            " highlight the last searched term
 filetype plugin on      " use the file type plugins
 
@@ -134,6 +140,8 @@ let g:load_doxygen_syntax=1
 au BufNewFile,BufRead *.vp set filetype=c "use vertex shaders as C source file
 au BufNewFile,BufRead *.gp set filetype=c "use geometry shaders as C source file
 au BufNewFile,BufRead *.fp set filetype=c "use pixel shaders as C source file
+au BufNewFile,BufRead *.cl set filetype=c "use OpenCL as C source file
+au BufNewFile,BufRead *.cu set filetype=c "use CUDA as C source file
 
 
 " -----------------------------------------------------------------------------
