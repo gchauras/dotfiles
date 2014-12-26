@@ -114,8 +114,6 @@ set ai                  " auto indenting
 set history=100         " keep 100 lines of history
 set ruler               " show the cursor position
 syntax on               " syntax highlighting
-let g:solarized_termcolors=256
-set t_Co=256
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 set background=dark     " dark color scheme
