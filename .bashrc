@@ -34,11 +34,25 @@ function powerprompt()
 
 powerprompt     # This is the default prompt -- might be slow.
 
+# Colors for filetype recognition with ls
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    alias ls='ls -hFG --color'
+    DIRCOLORS_FILE=$HOME/.dircolors
+    if [ -f $DIRCOLORS_FILE ]; then
+        eval `dircolors $DIRCOLORS_FILE`
+    else
+        export LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
+    fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ls='ls -hFG'
+    export LSCOLORS=dxfxcxdxbxegedabagacad
+else
+fi
+
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
-alias ls='ls -hFG --color' # add colors for filetype recognition
 alias ll='ls -lG'
 alias la='ls -Al'          # show hidden files
 alias lx='ls -lXB'         # sort by extension
@@ -60,18 +74,6 @@ alias l='ls'
 alias s='ls'
 alias mkae='make'
 alias maek='make'
-
-DIRCOLORS_FILE=$HOME/.dircolors
-if [ -f $DIRCOLORS_FILE ];
-then
-    # use LS_COLORS from dircolors file
-    eval `dircolors $DIRCOLORS_FILE`
-else
-    # use default
-    LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
-    export LS_COLORS
-fi
-
 
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
@@ -126,7 +128,8 @@ function extract()
     fi
 }
 
-# Handy open Program
+# Handy open Program for Linux, Mac already has this
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
 function open()
 {
     if [ -f $1 ] ; then
@@ -155,6 +158,7 @@ function open()
         esac
     fi
 }
+fi
 
 # Function to extract pages from a pdf file
 function pdfextr()
