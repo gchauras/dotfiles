@@ -24,24 +24,11 @@ export HOSTFILE=$HOME/.hosts    # Put list of remote hosts in ~/.hosts ...
 #-------------------------------------------------------------
 # Greeting, motd etc...
 #-------------------------------------------------------------
-
-# Define some colors first:
-red='\e[0;31m'
-RED='\e[1;31m'
-blue='\e[0;34m'
-BLUE='\e[1;34m'
-cyan='\e[0;36m'
-CYAN='\e[1;36m'
-NC='\e[0m'              # No Color
-# --> Nice. Has the same effect as using "ansi.sys" in DOS.
-
-
-# Looks best on a terminal with black background.....
-#echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}"
-#date
-
 function powerprompt()
 {
+    # Define some colors first:
+    cyan='\e[0;36m'
+    NC='\e[0m'              # No Color
     PS1="\n${cyan}[\u@\h \w]${NC}\n$ " ;
 }
 
@@ -51,9 +38,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
-
+alias ls='ls -hFG --color' # add colors for filetype recognition
 alias ll='ls -lG'
-alias ls='ls -hFG'         # add colors for filetype recognition
 alias la='ls -Al'          # show hidden files
 alias lx='ls -lXB'         # sort by extension
 alias lk='ls -lSr'         # sort by size, biggest last
@@ -63,17 +49,29 @@ alias lt='ls -ltr'         # sort by date, most recent last
 alias lm='ls -al |more'    # pipe through 'more'
 alias lr='ls -lR'          # recursive ls
 alias tree='tree -Csu'     # nice alternative to 'recursive ls'
-
-export LSCOLORS=dxfxcxdxbxegedabagacad # for ls colors on Mac
-
+alias grep='grep -Hn --color=always'    # grep with color
+alias egrep='egrep -Hn --color=always'
+alias fgrep='fgrep -Hn --color=always'
+alias rgrep='rgrep -Hn --color=always'
 alias vi='vim'
 alias sshx='ssh -X'
-
 alias sl='ls'              # typos
 alias l='ls'
 alias s='ls'
 alias mkae='make'
 alias maek='make'
+
+DIRCOLORS_FILE=$HOME/.dircolors
+if [ -f $DIRCOLORS_FILE ];
+then
+    # use LS_COLORS from dircolors file
+    eval `dircolors $DIRCOLORS_FILE`
+else
+    # use default
+    LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
+    export LS_COLORS
+fi
+
 
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
@@ -142,14 +140,19 @@ function open()
             *.pdf)      evince $1   ;;
             *.dvi)      evince $1   ;;
             *.ps)       evince $1   ;;
+        esac
+    else
+        case $1 in
             *.)         nautilus $1 ;;
             *..)        nautilus $1 ;;
             *./)        nautilus $1 ;;
             *../)       nautilus $1 ;;
+            .)          nautilus $1 ;;
+            ..)         nautilus $1 ;;
+            ./)         nautilus $1 ;;
+            ../)        nautilus $1 ;;
             *)          echo "'$1' cannot be opened via >open<" ;;
         esac
-    else
-        echo "'$1' is not a valid file"
     fi
 }
 
@@ -194,14 +197,8 @@ function spellcheckall_tex()
     find . -name \*.tex -exec aspell --lang=en_US -t -c {} \;
 }
 
-# for Ubuntu
-alias yum=apt-get
-
 export SVN_EDITOR=vim
 export EDITOR=vim
-
-export HALIDE_DIR=$HOME/Projects/Halide
-export RECFILTER_DIR=$HOME/Projects/recfilter
 
 export CUDA_INSTALL_PATH=/usr/local/cuda
 export CUDA_INC_PATH=$CUDA_INSTALL_PATH/include
