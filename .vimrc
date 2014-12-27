@@ -41,7 +41,6 @@ set wildmode=list:longest     " turn on wild mode huge list
 " set cursorline            " highlight current line
 set incsearch               " BUT do highlight as you type you
 
-set laststatus=2            " always show the status line
 set lazyredraw              " do not redraw while running macros
 set linespace=0             " don't insert any extra pixel lines
 " set list " we do what to show tabs, to ensure we get them
@@ -70,43 +69,6 @@ set foldmethod=syntax   "fold based on indent
 set foldnestmax=5       "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
-
-if has("gui_running")
-  colorscheme pablo
-  "  set hls
-  set columns=100
-  set langmenu=none
-  "  set guioptions=ce
-endif
-
-
-" -----------------------------------------------------------------------------
-" Status line quirks
-hi statusline ctermfg=DarkGreen ctermbg=Black   " default
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline ctermfg=DarkGreen ctermbg=Black
-  elseif a:mode == 'r'
-    hi statusline ctermfg=DarkGreen ctermbg=Black
-  else
-    hi statusline ctermfg=DarkGreen ctermbg=Black
-  endif
-endfunction
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=DarkGreen ctermbg=Black
-
-set statusline=%f                               " file name
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
-set statusline+=%{&ff}]                         " file format
-set statusline+=%y                              " filetype
-set statusline+=%h                              " help file flag
-set statusline+=%m                              " modified flag
-set statusline+=%r                              " read only flag
-" set statusline+=\ %=                            " align left
-" set statusline+=Line:%l/%L[%p%%]                " line X of Y [percent of file]
-set statusline+=\ Line:%l/%L                    " current column
-set statusline+=\ Col:%c                        " current column
-set statusline+=\ Buf:%n                        " buffer number
 
 " -----------------------------------------------------------------------------
 " enable syntax highlighting
@@ -141,6 +103,32 @@ au BufNewFile,BufRead *.fp set filetype=c "use pixel shaders as C source file
 au BufNewFile,BufRead *.cl set filetype=c "use OpenCL as C source file
 au BufNewFile,BufRead *.cu set filetype=c "use CUDA as C source file
 
+" -----------------------------------------------------------------------------
+" Status line quirks
+hi statusline ctermfg=DarkGreen ctermbg=Black   " default
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline ctermfg=DarkGreen ctermbg=Black
+  elseif a:mode == 'r'
+    hi statusline ctermfg=DarkGreen ctermbg=Black
+  else
+    hi statusline ctermfg=DarkGreen ctermbg=Black
+  endif
+endfunction
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline ctermfg=DarkGreen ctermbg=Black
+set statusline=%f                               " file name
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
+set statusline+=%{&ff}]                         " file format
+set statusline+=%y                              " filetype
+set statusline+=%h                              " help file flag
+set statusline+=%m                              " modified flag
+set statusline+=%r                              " read only flag
+" set statusline+=\ %=                            " align left
+" set statusline+=Line:%l/%L[%p%%]                " line X of Y [percent of file]
+set statusline+=\ Line:%l/%L                    " current column
+set statusline+=\ Col:%c                        " current column
+set statusline+=\ Buf:%n                        " buffer number
 
 " -----------------------------------------------------------------------------
 " Detect and remove trailing whitespace
