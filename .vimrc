@@ -19,9 +19,7 @@ set softtabstop=4
 set tabstop=4
 set nobackup
 set nu
-set incsearch
 
-filetype plugin indent on       " load filetype plugins/indent settings
 set autochdir                   " always switch to the current file directory
 set backspace=indent,eol,start  " make backspace a more flexible
 
@@ -39,23 +37,22 @@ set wildmode=list:longest     " turn on wild mode huge list
 
 " set cursorcolumn          " highlight the current column
 " set cursorline            " highlight current line
-set incsearch               " BUT do highlight as you type you
 
 set lazyredraw              " do not redraw while running macros
 set linespace=0             " don't insert any extra pixel lines
-" set list " we do what to show tabs, to ensure we get them
 set listchars=tab:>-,trail:- " show tabs and trailing
 
 set matchtime=5             " how many tenths of a second to blink
-" set nohlsearch              " do not highlight searched for phrases
 set nostartofline           " leave my cursor where it was
+
+set re=1
 
 set noerrorbells            " don't make noise
 set novisualbell            " don't blink
 autocmd VimEnter * set vb t_vb=
 
 set number                  " turn on line numbers
-set numberwidth=5           " We are good up to 99999 lines
+set numberwidth=4           " We are good up to 99999 lines
 set report=0                " tell us when anything is changed via :...
 set ruler                   " Always show current positions along the bottom
 set scrolloff=10            " Keep 10 lines (top/bottom) for scope
@@ -65,23 +62,20 @@ set showcmd                 " show the command being typed
 set showmatch               " show matching brackets
 set sidescrolloff=10        " Keep 5 lines at the size
 
-set foldmethod=syntax   "fold based on indent
-set foldnestmax=5       "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=1         "this is just what i use
+set foldmethod=syntax       " fold based on indent
+set foldnestmax=5           " deepest fold is 10 levels
+set nofoldenable            " dont fold by default
+set foldlevel=1             " this is just what i use
+set hlsearch                " highlight the last searched term
+set incsearch               " BUT do highlight as you type you
 
-" -----------------------------------------------------------------------------
-" enable syntax highlighting
-set ai                  " auto indenting
-set history=100         " keep 100 lines of history
-set ruler               " show the cursor position
-syntax on               " syntax highlighting
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-set background=dark     " dark color scheme
-colorscheme solarized   " solarized color scheme
-set hlsearch            " highlight the last searched term
-filetype plugin on      " use the file type plugins
+set ai                      " auto indenting
+set history=100             " keep 100 lines of history
+set ruler                   " show the cursor position
+
+syntax on                   " enable syntax highlighting
+filetype plugin on          " load filetype plugins/indent settings
+filetype plugin indent on   " load filetype plugins/indent settings
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -97,11 +91,11 @@ let g:load_doxygen_syntax=1
 
 " -----------------------------------------------------------------------------
 " New file types
-au BufNewFile,BufRead *.vp set filetype=c "use vertex shaders as C source file
-au BufNewFile,BufRead *.gp set filetype=c "use geometry shaders as C source file
-au BufNewFile,BufRead *.fp set filetype=c "use pixel shaders as C source file
-au BufNewFile,BufRead *.cl set filetype=c "use OpenCL as C source file
-au BufNewFile,BufRead *.cu set filetype=c "use CUDA as C source file
+au BufNewFile,BufRead *.vp set filetype=cpp "use vertex shaders as C source file
+au BufNewFile,BufRead *.gp set filetype=cpp "use geometry shaders as C source file
+au BufNewFile,BufRead *.fp set filetype=cpp "use pixel shaders as C source file
+au BufNewFile,BufRead *.cl set filetype=cpp "use OpenCL as C source file
+au BufNewFile,BufRead *.cu set filetype=cpp "use CUDA as C source file
 
 " -----------------------------------------------------------------------------
 " Status line quirks
@@ -124,9 +118,8 @@ set statusline+=%y                              " filetype
 set statusline+=%h                              " help file flag
 set statusline+=%m                              " modified flag
 set statusline+=%r                              " read only flag
-" set statusline+=\ %=                            " align left
-" set statusline+=Line:%l/%L[%p%%]                " line X of Y [percent of file]
-set statusline+=\ Line:%l/%L                    " current column
+set statusline+=\ %=                            " align left
+set statusline+=Line:%l/%L[%p%%]                " line X of Y [percent of file]
 set statusline+=\ Col:%c                        " current column
 set statusline+=\ Buf:%n                        " buffer number
 

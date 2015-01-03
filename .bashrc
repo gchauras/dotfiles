@@ -13,7 +13,6 @@ shopt -s cmdhist
 shopt -s histappend histreedit histverify
 shopt -s extglob        # Necessary for programmable completion.
 
-
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTTIMEFORMAT="%H:%M > "
 export HISTIGNORE="&:bg:fg:ll:h"
@@ -43,7 +42,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     else
         export LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
     fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+else
     alias ls='ls -hFG'
     export LSCOLORS=dxfxcxdxbxegedabagacad
 else
