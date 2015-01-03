@@ -154,3 +154,7 @@ set undolevels=1000             " maximum number of changes that can be undone
 set nobackup                    " seriously, use a VCS
 set nowritebackup
 set noswapfile                  " they are really annoying...
+
+" Color scheme
+set background=dark
+colorscheme solarized
