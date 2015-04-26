@@ -21,6 +21,7 @@
     logg = log --oneline --graph
     st = status
     ci = commit -m
-	d = difftool
+    d = difftool
+    co = checkout
 [push]
 	default = simple
