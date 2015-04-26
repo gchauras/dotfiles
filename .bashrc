@@ -43,9 +43,9 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
         export LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
     fi
 else
+    # Mac and other platforms
     alias ls='ls -hFG'
     export LSCOLORS=dxfxcxdxbxegedabagacad
-else
 fi
 
 alias rm='rm -i'

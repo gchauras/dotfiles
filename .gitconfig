@@ -22,3 +22,5 @@
     st = status
     ci = commit -m
 	d = difftool
+[push]
+	default = simple
