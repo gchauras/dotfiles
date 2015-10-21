@@ -157,4 +157,5 @@ set noswapfile                  " they are really annoying...
 
 " Color scheme
 set background=dark
+set t_Co=16
 colorscheme solarized
