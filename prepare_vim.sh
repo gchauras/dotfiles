@@ -4,9 +4,9 @@
 git submodule update --init --recursive
 
 # move current .vimrc and .vim
-mv ~/.vimrc ~/.vimrc.renamed
-mv ~/.vim ~/.vim.renamed
+mv -f ~/.vimrc ~/.vimrc.renamed
+mv -f ~/.vim ~/.vim.renamed
 
 # symlink .vimrc .vim directory
-ln -s .vimrc ~/.vimrc
-ln -s .vim   ~/.vim
+ln -s `pwd`/.vimrc ~/.vimrc
+ln -s `pwd`/.vim   ~/.vim
