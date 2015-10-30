@@ -159,3 +159,7 @@ set noswapfile                  " they are really annoying...
 set background=dark
 set t_Co=16
 colorscheme solarized
+
+" Pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
