@@ -13,6 +13,7 @@ Include plugins like:
 - NerdTree
 - Solarized color scheme
 - C++ syntax
+- Fugitive
 
 ### Solarized color scheme files
 - vim (using [Solarized](http://ethanschoonover.com/solarized))
