@@ -187,6 +187,12 @@ function pdfresize()
         $1
 }
 
+function pdfcombine()
+{
+    echo "Combining $@ to merged.file.pdf"
+    gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.file.pdf $@
+}
+
 alias spellcheck='aspell --lang=en_US -c'
 
 function spellcheck_tex()
@@ -210,3 +216,10 @@ export CUDA_BIN_PATH=$CUDA_INSTALL_PATH/bin
 
 export PATH=$CUDA_BIN_PATH:$PATH
 export LD_LIBRARY_PATH=$CUDA_BIN_PATH:$LD_LIBRARY_PATH
+
+# ROS exports
+source /opt/ros/jade/setup.bash
+
+# Non-free party binary applications
+export PATH=/usr/local/:$PATH   # Zotero
+export PATH=/usr/local/:$PATH   # Sublime Text
