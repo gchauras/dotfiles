@@ -18,17 +18,20 @@ export HISTTIMEFORMAT="%H:%M > "
 export HISTIGNORE="&:bg:fg:ll:h"
 export HOSTFILE=$HOME/.hosts    # Put list of remote hosts in ~/.hosts ...
 
-
-
-#-------------------------------------------------------------
-# Greeting, motd etc...
-#-------------------------------------------------------------
 function powerprompt()
 {
-    # Define some colors first:
-    cyan='\e[0;36m'
-    NC='\e[0m'              # No Color
-    PS1="\n${cyan}[\u@\h \w]${NC}\n$ " ;
+    CYAN='\e[0;36m'     # Cyan
+    NC='\e[0m'          # No Color
+
+    # Get the git prompt script
+    GIT_PROMPT_ONLY_IN_REPO=0
+    GIT_PROMPT_START="\n${CYAN}[\u@\h \w]${NC}"
+    GIT_PROMPT_END="\n$ "
+    GIT_PROMPT_FETCH_REMOTE_STATUS=1    # uncomment to avoid fetching remote status
+    GIT_PROMPT_SHOW_UPSTREAM=1          # uncomment to show upstream tracking branch
+    GIT_PROMPT_SHOW_UNTRACKED_FILES=all # can be no, normal or all
+    GIT_PROMPT_THEME=Solarized          # use theme optimized for solarized color scheme
+    source $HOME/Projects/dotfiles/bash-git-prompt/gitprompt.sh
 }
 
 powerprompt     # This is the default prompt -- might be slow.
@@ -73,6 +76,8 @@ alias l='ls'
 alias s='ls'
 alias mkae='make'
 alias maek='make'
+alias cmkae='cmake'
+alias cmaek='cmake'
 
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
@@ -142,6 +147,8 @@ function open()
             *.pdf)      evince $1   ;;
             *.dvi)      evince $1   ;;
             *.ps)       evince $1   ;;
+            *.htm)      firefox $1  ;;
+            *.html)     firefox $1  ;;
         esac
     else
         case $1 in
@@ -221,5 +228,13 @@ export LD_LIBRARY_PATH=$CUDA_BIN_PATH:$LD_LIBRARY_PATH
 source /opt/ros/jade/setup.bash
 
 # Non-free party binary applications
-export PATH=/usr/local/:$PATH   # Zotero
-export PATH=/usr/local/:$PATH   # Sublime Text
+export PATH=/usr/local/:$PATH   # Zotero and Sublime Text
+
+# ssh aliases
+alias occam="ssh occam.csail.mit.edu"
+alias luxo="ssh luxo4.csail.mit.edu"
+alias ephesia="ssh ephesia.csail.mit.edu"
+
+export CAFFE_DIR=$HOME/Projects/tests/caffe/build/install
+export APPROXFILT_DIR=$HOME/Projects/tests/approxfilt/
+export PYTHONPATH=$CAFFE_DIR/python/:$APPROXFILT_DIR/python/demosaic/:$APPROXFILT_DIR/python/demosaic/lib:$APPROXFILT_DIR/python/processing/reconstruct:$PYTHONPATH
