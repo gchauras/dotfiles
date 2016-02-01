@@ -149,6 +149,9 @@ function open()
             *.ps)       evince $1   ;;
             *.htm)      firefox $1  ;;
             *.html)     firefox $1  ;;
+            *.obj)      meshlab $1  ;;
+            *.ply)      meshlab $1  ;;
+            *.3ds)      meshlab $1  ;;
         esac
     else
         case $1 in
