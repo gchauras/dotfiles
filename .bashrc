@@ -65,10 +65,10 @@ alias lt='ls -ltr'         # sort by date, most recent last
 alias lm='ls -al |more'    # pipe through 'more'
 alias lr='ls -lR'          # recursive ls
 alias tree='tree -Csu'     # nice alternative to 'recursive ls'
-alias grep='grep -Hn --color=always'    # grep with color
-alias egrep='egrep -Hn --color=always'
-alias fgrep='fgrep -Hn --color=always'
-alias rgrep='rgrep -Hn --color=always'
+alias grep='grep   --color=always'    # grep with color
+alias egrep='egrep --color=always'
+alias fgrep='fgrep --color=always'
+alias rgrep='rgrep --color=always'
 alias vi='vim'
 alias sshx='ssh -X'
 alias sl='ls'              # typos
@@ -122,6 +122,7 @@ function extract()
             *.tar)       tar xvf $1      ;;
             *.tbz2)      tar xvjf $1     ;;
             *.tgz)       tar xvzf $1     ;;
+            *.rar)       unrar $1        ;;
             *.zip)       unzip $1        ;;
             *.Z)         uncompress $1   ;;
             *.7z)        7z x $1         ;;
@@ -225,19 +226,6 @@ export CUDA_LIB_PATH=$CUDA_INSTALL_PATH/lib64
 export CUDA_BIN_PATH=$CUDA_INSTALL_PATH/bin
 
 export PATH=$CUDA_BIN_PATH:$PATH
-export LD_LIBRARY_PATH=$CUDA_BIN_PATH:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$CUDA_BIN_PATH:$CUDA_LIB_PATH:$LD_LIBRARY_PATH
 
-# ROS exports
-source /opt/ros/jade/setup.bash
-
-# Non-free party binary applications
-export PATH=/usr/local/:$PATH   # Zotero and Sublime Text
-
-# ssh aliases
-alias occam="ssh occam.csail.mit.edu"
-alias luxo="ssh luxo4.csail.mit.edu"
-alias ephesia="ssh ephesia.csail.mit.edu"
-
-export CAFFE_DIR=$HOME/Projects/tests/caffe/build/install
-export APPROXFILT_DIR=$HOME/Projects/tests/approxfilt/
-export PYTHONPATH=$CAFFE_DIR/python/:$APPROXFILT_DIR/python/demosaic/:$APPROXFILT_DIR/python/demosaic/lib:$APPROXFILT_DIR/python/processing/reconstruct:$PYTHONPATH
+export PATH=/usr/local/:$PATH
