@@ -203,18 +203,9 @@ function pdfcombine()
     gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.file.pdf $@
 }
 
-alias spellcheck='aspell --lang=en_US -c'
-
-function spellcheck_tex()
-{
-    #1 is the input tex file
-    aspell --lang=en_US -t -c $1;
-}
-
-function spellcheckall_tex()
-{
-    find . -name \*.tex -exec aspell --lang=en_US -t -c {} \;
-}
+alias spellcheck='aspell -d en_GB -c'
+alias spellcheck_tex='aspell -d en_GB -c -t'
+alias spellcheckall_tex='find . -name \*.tex -exec aspell -d en_GB -c -t {} \;'
 
 export SVN_EDITOR=vim
 export EDITOR=vim
@@ -227,17 +218,24 @@ export CUDA_BIN_PATH=$CUDA_INSTALL_PATH/bin
 export PATH=$CUDA_BIN_PATH:$PATH
 export LD_LIBRARY_PATH=$CUDA_BIN_PATH:$LD_LIBRARY_PATH
 
-# ROS exports
-source /opt/ros/jade/setup.bash
-
 # Non-free party binary applications
-export PATH=/usr/local/:$PATH   # Zotero and Sublime Text
+export PATH=/usr/local/:$PATH   # Zotero
 
-# ssh aliases
-alias occam="ssh occam.csail.mit.edu"
-alias luxo="ssh luxo4.csail.mit.edu"
-alias ephesia="ssh ephesia.csail.mit.edu"
+export HALIDE_DIR=$HOME/Software/Halide
+export LLVM_ROOT=$HOME/Software/llvm3.7/build
+export LLVM_CONFIG=$LLVM_ROOT/bin/llvm-config
+export CLANG=$LLVM_ROOT/bin/clang
 
-export CAFFE_DIR=$HOME/Projects/tests/caffe/build/install
-export APPROXFILT_DIR=$HOME/Projects/tests/approxfilt/
-export PYTHONPATH=$CAFFE_DIR/python/:$APPROXFILT_DIR/python/demosaic/:$APPROXFILT_DIR/python/demosaic/lib:$APPROXFILT_DIR/python/processing/reconstruct:$PYTHONPATH
+export BUNDLER_BIN_PATH=$HOME/Software/MVS/bin
+export PATH=$BUNDLER_BIN_PATH:$PATH
+export LD_LIBRARY_PATH=$BUNDLER_BIN_PATH:$LD_LIBRARY_PATH
+
+export TORCH_DIR=$HOME/Projects/cnn_tests/torch/install/bin/torch-activate
+export PATH=$TORCH_DIR:$PATH
+export LD_LIBRARY_PATH=$TORCH_DIR:$LD_LIBRARY_PATH
+
+export CAFFE_DIR=$HOME/Software/caffe/build/install
+export PYTHONPATH=$CAFFE_DIR/python/:$PYTHONPATH
+
+# export PATH=$CAFFE_DIR:$PATH
+# export LD_LIBRARY_PATH=$CAFFE_DIR:$LD_LIBRARY_PATH

@@ -156,7 +156,7 @@ set nowritebackup
 set noswapfile                  " they are really annoying...
 
 " Color scheme
-set background=dark
+set background=light
 set t_Co=16
 colorscheme solarized
 
