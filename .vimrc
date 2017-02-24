@@ -125,8 +125,8 @@ set statusline+=\ Buf:%n                        " buffer number
 
 " -----------------------------------------------------------------------------
 " Detect and remove trailing whitespace
-autocmd BufWritePre * :%s/\s\+$//e           "remove traliling spaces
-autocmd FileType c,cpp,java,php,html autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd BufWritePre * :%s/\s\+$//e           "remove trailing spaces
+autocmd FileType c,cpp,java,php,py,html autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 function ShowAllSpaces(...)
   let @/='\v(\s+$)|( +\ze\t)'
@@ -151,9 +151,9 @@ command -bar -nargs=0 -range=% TrimAllSpaces <line1>,<line2>call TrimAllSpaces()
 " Setting up the undo/history
 set history=1000
 set undolevels=1000             " maximum number of changes that can be undone
-set nobackup                    " seriously, use a VCS
+set nobackup                    " no backup or swap files
 set nowritebackup
-set noswapfile                  " they are really annoying...
+set noswapfile
 
 " Color scheme
 set background=light
