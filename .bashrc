@@ -204,6 +204,7 @@ function pdfcombine()
     gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.file.pdf $@
 }
 
+# spell check
 alias spellcheck='aspell -d en_GB -c'
 alias spellcheck_tex='aspell -d en_GB -c -t'
 alias spellcheckall_tex='find . -name \*.tex -exec aspell -d en_GB -c -t {} \;'
@@ -211,6 +212,10 @@ alias spellcheckall_tex='find . -name \*.tex -exec aspell -d en_GB -c -t {} \;'
 export SVN_EDITOR=vim
 export EDITOR=vim
 
+# Mencode options for X264
+export MENCODER_X264OPTS="-ovc x264 -x264encopts preset=veryslow:tune=film:crf=15:frameref=15:fast_pskip=0:threads=auto"
+
+# CUDA
 export CUDA_INSTALL_PATH=/usr/local/cuda
 export CUDA_INC_PATH=$CUDA_INSTALL_PATH/include
 export CUDA_LIB_PATH=$CUDA_INSTALL_PATH/lib64
@@ -220,23 +225,17 @@ export PATH=$CUDA_BIN_PATH:$PATH
 export LD_LIBRARY_PATH=$CUDA_BIN_PATH:$CUDA_LIB_PATH:$LD_LIBRARY_PATH
 
 # Non-free party binary applications
-export PATH=/usr/local/:$PATH   # Zotero
+export PATH=/usr/local/:$PATH                                   # Zotero
+export PATH=/usr/local/pycharm-community-2016.3.2/bin/:$PATH    # PyCharm
 
-export HALIDE_DIR=$HOME/Software/Halide
-export LLVM_ROOT=$HOME/Software/llvm3.7/build
-export LLVM_CONFIG=$LLVM_ROOT/bin/llvm-config
-export CLANG=$LLVM_ROOT/bin/clang
+# Bundler, MVS
+# export BUNDLER_BIN_PATH=$HOME/Software/MVS/bin
+# export PATH=$BUNDLER_BIN_PATH:$PATH
+# export LD_LIBRARY_PATH=$BUNDLER_BIN_PATH:$LD_LIBRARY_PATH
 
-export BUNDLER_BIN_PATH=$HOME/Software/MVS/bin
-export PATH=$BUNDLER_BIN_PATH:$PATH
-export LD_LIBRARY_PATH=$BUNDLER_BIN_PATH:$LD_LIBRARY_PATH
+# Caffe. Torch
+# export CAFFE_DIR=$HOME/Software/caffe/build/install
+# export PYTHONPATH=$CAFFE_DIR/python/:$PYTHONPATH
 
-export TORCH_DIR=$HOME/Projects/cnn_tests/torch/install/bin/torch-activate
-export PATH=$TORCH_DIR:$PATH
-export LD_LIBRARY_PATH=$TORCH_DIR:$LD_LIBRARY_PATH
-
-export CAFFE_DIR=$HOME/Software/caffe/build/install
-export PYTHONPATH=$CAFFE_DIR/python/:$PYTHONPATH
-
-# export PATH=$CAFFE_DIR:$PATH
-# export LD_LIBRARY_PATH=$CAFFE_DIR:$LD_LIBRARY_PATH
+# export PATH=$CAFFE_DIR:$TORCH_DIR:$PATH
+# export LD_LIBRARY_PATH=$CAFFE_DIR:$TORCH_DIR:$LD_LIBRARY_PATH
