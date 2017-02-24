@@ -1,9 +1,27 @@
 " Configuration file for vim
-set modelines=0		" CVE-2007-2438
 
-" Normally we use vim-extensions. If you want true vi-compatibility
-" remove change the following statements
+" -----------------------------------------------------------------------------
+" Plugins using vundle
+
 set nocompatible	" Use Vim defaults instead of 100% vi compatibility
+filetype off                                " required
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'               " let vundle manage vundle
+Plugin 'altercation/vim-colors-solarized'   " solarized color scheme
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+call vundle#end()
+
+syntax on                   " enable syntax highlighting
+" filetype plugin on          " load filetype plugins/indent settings
+filetype plugin indent on   " load filetype plugins/indent settings
+
+
+" -----------------------------------------------------------------------------
+
+set modelines=0		" CVE-2007-2438
 set backspace=2		" more powerful backspacing
 
 set completeopt=
@@ -17,7 +35,6 @@ set smartcase
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
-set nobackup
 set nu
 
 set autochdir                   " always switch to the current file directory
@@ -73,10 +90,6 @@ set ai                      " auto indenting
 set history=100             " keep 100 lines of history
 set ruler                   " show the cursor position
 
-syntax on                   " enable syntax highlighting
-filetype plugin on          " load filetype plugins/indent settings
-filetype plugin indent on   " load filetype plugins/indent settings
-
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
 \ if ! exists("g:leave_my_cursor_position_alone") |
@@ -90,12 +103,21 @@ autocmd BufReadPost *
 let g:load_doxygen_syntax=1
 
 " -----------------------------------------------------------------------------
-" New file types
-au BufNewFile,BufRead *.vp set filetype=cpp "use vertex shaders as C source file
-au BufNewFile,BufRead *.gp set filetype=cpp "use geometry shaders as C source file
-au BufNewFile,BufRead *.fp set filetype=cpp "use pixel shaders as C source file
-au BufNewFile,BufRead *.cl set filetype=cpp "use OpenCL as C source file
-au BufNewFile,BufRead *.cu set filetype=cpp "use CUDA as C source file
+" File types
+au BufNewFile,BufRead *.cpp set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.cc  set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.cxx set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.hpp set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.h   set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.hh  set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.hxx set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.vp  set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.gp  set filetype=cpp       " geometry shaders as C source file
+au BufNewFile,BufRead *.fp  set filetype=cpp       " pixel shaders as C source file
+au BufNewFile,BufRead *.cl  set filetype=cpp       " OpenCL as C source file
+au BufNewFile,BufRead *.cu  set filetype=cpp       " CUDA as C source file
+au BufNewFile,BufRead *.md  set filetype=markdown  " markdown files
+au BufNewFile,BufRead *.py  set filetype=python    " python files
 
 " -----------------------------------------------------------------------------
 " Status line quirks
@@ -125,8 +147,8 @@ set statusline+=\ Buf:%n                        " buffer number
 
 " -----------------------------------------------------------------------------
 " Detect and remove trailing whitespace
-autocmd BufWritePre * :%s/\s\+$//e           "remove trailing spaces
-autocmd FileType c,cpp,java,php,py,html autocmd BufWritePre <buffer> :%s/\s\+$//e
+au BufWritePre * :%s/\s\+$//e           "remove trailing spaces
+au FileType c,cpp,java,php,py,html autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 function ShowAllSpaces(...)
   let @/='\v(\s+$)|( +\ze\t)'
@@ -148,6 +170,7 @@ endfunction
 command -bar -nargs=? ShowAllSpaces call ShowAllSpaces(<args>)
 command -bar -nargs=0 -range=% TrimAllSpaces <line1>,<line2>call TrimAllSpaces()
 
+" -----------------------------------------------------------------------------
 " Setting up the undo/history
 set history=1000
 set undolevels=1000             " maximum number of changes that can be undone
@@ -155,7 +178,8 @@ set nobackup                    " no backup or swap files
 set nowritebackup
 set noswapfile
 
+" -----------------------------------------------------------------------------
 " Color scheme
-set background=light
+set background=dark
 set t_Co=16
 colorscheme solarized
