@@ -1,23 +1,71 @@
 " Configuration file for vim
 
+set encoding=utf-8
+set nocompatible	" Vim defaults instead of 100% vi compatibility
+
+" -----------------------------------------------------------------------------
+" enable Doxygen syntax
+let g:load_doxygen_syntax=1
+
+" -----------------------------------------------------------------------------
+" File types
+au BufNewFile,BufRead *.cpp set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.cc  set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.cxx set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.hpp set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.h   set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.hh  set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.hxx set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.vp  set filetype=cpp       " C++ source file
+au BufNewFile,BufRead *.gp  set filetype=cpp       " geometry shaders as C source file
+au BufNewFile,BufRead *.fp  set filetype=cpp       " pixel shaders as C source file
+au BufNewFile,BufRead *.cl  set filetype=cpp       " OpenCL as C source file
+au BufNewFile,BufRead *.cu  set filetype=cpp       " CUDA as C source file
+au BufNewFile,BufRead *.md  set filetype=markdown  " markdown files
+au BufNewFile,BufRead *.py  set filetype=python    " python files
+
 " -----------------------------------------------------------------------------
 " Plugins using vundle
 
-set nocompatible	" Use Vim defaults instead of 100% vi compatibility
 filetype off                                " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'               " let vundle manage vundle
 Plugin 'altercation/vim-colors-solarized'   " solarized color scheme
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-fugitive'                 " git management
+Plugin 'tpope/vim-markdown'                 " markdown syntax
+Plugin 'Valloric/YouCompleteMe'             " code completion -- Jedi for python
+Plugin 'scrooloose/syntastic'               " python syntax checking
+Plugin 'nvie/vim-flake8'                    " python PEP8 checking
+Plugin 'vim-scripts/indentpython.vim'       " python indentation
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 call vundle#end()
 
+" -----------------------------------------------------------------------------
+" Syntax highlighting
 syntax on                   " enable syntax highlighting
 " filetype plugin on          " load filetype plugins/indent settings
 filetype plugin indent on   " load filetype plugins/indent settings
 
+" -----------------------------------------------------------------------------
+" Code completion
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" -----------------------------------------------------------------------------
+" PEP8 settings for python
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
+" Mark bad whitespace for python
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " -----------------------------------------------------------------------------
 
@@ -52,8 +100,8 @@ set wildmenu                " turn on command line completion wild style
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png
 set wildmode=list:longest     " turn on wild mode huge list
 
-" set cursorcolumn          " highlight the current column
-" set cursorline            " highlight current line
+set cursorcolumn          " highlight the current column
+set cursorline            " highlight current line
 
 set lazyredraw              " do not redraw while running macros
 set linespace=0             " don't insert any extra pixel lines
@@ -66,7 +114,7 @@ set re=1
 
 set noerrorbells            " don't make noise
 set novisualbell            " don't blink
-autocmd VimEnter * set vb t_vb=
+au  VimEnter * set vb t_vb=
 
 set number                  " turn on line numbers
 set numberwidth=4           " We are good up to 99999 lines
@@ -85,10 +133,7 @@ set nofoldenable            " dont fold by default
 set foldlevel=1             " this is just what i use
 set hlsearch                " highlight the last searched term
 set incsearch               " BUT do highlight as you type you
-
-set ai                      " auto indenting
-set history=100             " keep 100 lines of history
-set ruler                   " show the cursor position
+" set ai                      " auto indenting
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -99,51 +144,9 @@ autocmd BufReadPost *
 \ endif
 
 " -----------------------------------------------------------------------------
-" enable Doxygen syntax
-let g:load_doxygen_syntax=1
-
-" -----------------------------------------------------------------------------
-" File types
-au BufNewFile,BufRead *.cpp set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.cc  set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.cxx set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.hpp set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.h   set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.hh  set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.hxx set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.vp  set filetype=cpp       " C++ source file
-au BufNewFile,BufRead *.gp  set filetype=cpp       " geometry shaders as C source file
-au BufNewFile,BufRead *.fp  set filetype=cpp       " pixel shaders as C source file
-au BufNewFile,BufRead *.cl  set filetype=cpp       " OpenCL as C source file
-au BufNewFile,BufRead *.cu  set filetype=cpp       " CUDA as C source file
-au BufNewFile,BufRead *.md  set filetype=markdown  " markdown files
-au BufNewFile,BufRead *.py  set filetype=python    " python files
-
-" -----------------------------------------------------------------------------
-" Status line quirks
-hi statusline ctermfg=DarkGreen ctermbg=Black   " default
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline ctermfg=DarkGreen ctermbg=Black
-  elseif a:mode == 'r'
-    hi statusline ctermfg=DarkGreen ctermbg=Black
-  else
-    hi statusline ctermfg=DarkGreen ctermbg=Black
-  endif
-endfunction
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=DarkGreen ctermbg=Black
-set statusline=%f                               " file name
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
-set statusline+=%{&ff}]                         " file format
-set statusline+=%y                              " filetype
-set statusline+=%h                              " help file flag
-set statusline+=%m                              " modified flag
-set statusline+=%r                              " read only flag
-set statusline+=\ %=                            " align left
-set statusline+=Line:%l/%L[%p%%]                " line X of Y [percent of file]
-set statusline+=\ Col:%c                        " current column
-set statusline+=\ Buf:%n                        " buffer number
+" Powerline setup
+" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
+set laststatus=2
 
 " -----------------------------------------------------------------------------
 " Detect and remove trailing whitespace
