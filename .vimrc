@@ -27,7 +27,7 @@ au BufNewFile,BufRead *.py  set filetype=python    " python files
 " -----------------------------------------------------------------------------
 " Plugins using vundle
 
-filetype off                                " required
+" filetype off                                " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -43,29 +43,41 @@ Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 call vundle#end()
 
 " -----------------------------------------------------------------------------
-" Syntax highlighting
-syntax on                   " enable syntax highlighting
-" filetype plugin on          " load filetype plugins/indent settings
-filetype plugin indent on   " load filetype plugins/indent settings
-
-" -----------------------------------------------------------------------------
-" Code completion
+" Code completion by YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " -----------------------------------------------------------------------------
+" Python with virtualenv support
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"     project_base_dir = os.environ['VIRTUAL_ENV']
+"     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"     execfile(activate_this, dict(__file__=activate_this))
+" EOF
+
+" -----------------------------------------------------------------------------
 " PEP8 settings for python
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
+" au BufNewFile,BufRead *.py
+"     \ setlocal tabstop=4
+"     \ setlocal softtabstop=4
+"     \ setlocal shiftwidth=4
+"     \ setlocal textwidth=79
+"     \ setlocal expandtab
+"     \ setlocal autoindent
+"     \ setlocal fileformat=unix
 
 " Mark bad whitespace for python
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" -----------------------------------------------------------------------------
+" Syntax highlighting
+let python_highlight_all=1
+syntax on                   " enable syntax highlighting
+filetype plugin on          " load filetype plugins/indent settings
+filetype plugin indent on   " load filetype plugins/indent settings
 
 " -----------------------------------------------------------------------------
 
@@ -100,8 +112,10 @@ set wildmenu                " turn on command line completion wild style
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png
 set wildmode=list:longest     " turn on wild mode huge list
 
-set cursorcolumn          " highlight the current column
-set cursorline            " highlight current line
+set cursorcolumn            " highlight the current column
+set cursorline              " highlight current line
+set textwidth=80            " text width
+set colorcolumn=+1          " highlight 80th column
 
 set lazyredraw              " do not redraw while running macros
 set linespace=0             " don't insert any extra pixel lines
@@ -133,7 +147,7 @@ set nofoldenable            " dont fold by default
 set foldlevel=1             " this is just what i use
 set hlsearch                " highlight the last searched term
 set incsearch               " BUT do highlight as you type you
-" set ai                      " auto indenting
+set ai                      " auto indenting
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -145,7 +159,6 @@ autocmd BufReadPost *
 
 " -----------------------------------------------------------------------------
 " Powerline setup
-" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
 set laststatus=2
 
 " -----------------------------------------------------------------------------
@@ -183,6 +196,11 @@ set noswapfile
 
 " -----------------------------------------------------------------------------
 " Color scheme
-set background=dark
-set t_Co=16
-colorscheme solarized
+if has('gui_running')
+    set background=dark
+    colorscheme solarized
+else
+    set background=light
+    set t_Co=16
+    colorscheme solarized
+endif
