@@ -137,6 +137,7 @@ function extract()
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 function open()
 {
+    browser=google-chrome
     if [ -f $1 ] ; then
         case $1 in
             *.jpg)      display $1  ;;
@@ -148,8 +149,8 @@ function open()
             *.pdf)      evince $1   ;;
             *.dvi)      evince $1   ;;
             *.ps)       evince $1   ;;
-            *.htm)      firefox $1  ;;
-            *.html)     firefox $1  ;;
+            *.htm)      $browser $1 ;;
+            *.html)     $browser $1 ;;
             *.obj)      meshlab $1  ;;
             *.ply)      meshlab $1  ;;
             *.3ds)      meshlab $1  ;;
