@@ -5,7 +5,9 @@ then
     dir=$1;
     images=`find -E $dir -maxdepth 1 -type f -regex ".*\.(jpg|jpeg|JPG|JPEG)"`;
     renamed_dir=$dir/renamed;
+    oldname_dir=$dir/oldname;
     mkdir -p $renamed_dir;
+    mkdir -p $oldname_dir;
 
     for f in $images
     do
@@ -19,6 +21,7 @@ then
             cp $f $renamed_dir/;
             echo "Cannot rename $f, no EXIF tags";
         fi
+        mv $f $oldname_dir/;
     done
 else
     echo "Usage: rename_photographs_by_date_taken.sh [directory containing images]";
