@@ -39,7 +39,8 @@ Plugin 'Valloric/YouCompleteMe'             " code completion -- Jedi for python
 Plugin 'scrooloose/syntastic'               " python syntax checking
 Plugin 'nvie/vim-flake8'                    " python PEP8 checking
 Plugin 'vim-scripts/indentpython.vim'       " python indentation
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'vim-airline/vim-airline'
 call vundle#end()
 
 " -----------------------------------------------------------------------------
@@ -195,12 +196,10 @@ set nowritebackup
 set noswapfile
 
 " -----------------------------------------------------------------------------
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
+" -----------------------------------------------------------------------------
 " Color scheme
-if has('gui_running')
-    set background=dark
-    colorscheme solarized
-else
-    set background=dark
-    set t_Co=16
-    colorscheme solarized
-endif
+colorscheme tomorrow-night
